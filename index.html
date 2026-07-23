@@ -6,6 +6,12 @@
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="顔の見える社長｜ご紹介ページ">
+<meta property="og:description" content="社長の似顔絵をしたAIが、ホームページに来た人を出迎えます。まずは3分、実際に触ってみてください。">
+<meta property="og:image" content="https://spc-jp.github.io/kaonomieru-series-lp/hero.png">
+<meta property="og:url" content="https://spc-jp.github.io/kaonomieru-series-lp/">
+<meta name="twitter:card" content="summary_large_image">
 <title>顔の見える社長｜ご紹介ページ</title>
 <style>
 :root{
@@ -55,7 +61,15 @@ p:last-child{margin-bottom:0}
 .ib-msg{font-size:.9rem;color:var(--ink-soft);line-height:1.9}
 
 /* 1 見出し */
-.hero{padding:70px 0 58px}
+.hero{padding:44px 0 58px}
+.hero-img{
+  margin-bottom:32px;border-radius:14px;overflow:hidden;
+  box-shadow:0 4px 22px rgba(60,45,30,.10);
+  animation:fuin 1.2s ease both;
+}
+.hero-img img{display:block;width:100%;height:auto}
+@keyframes fuin{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.hero-img{animation:none}}
 .hero h1{
   font-family:var(--serif);font-weight:600;
   font-size:1.7rem;line-height:1.85;margin-bottom:26px;
@@ -160,6 +174,7 @@ footer{padding:26px 0 40px;font-size:.8rem;color:var(--ink-soft);text-align:cent
   .wrap{max-width:100%;padding:0 10mm}
   section{padding:14px 0;break-inside:avoid;page-break-inside:avoid}
   .hero{padding:16px 0}
+  .hero-img{max-width:120mm;margin:0 auto 10px;box-shadow:none;border:0.6pt solid #bbb;animation:none}
   .hero h1{font-size:15pt}
   h2{font-size:12pt;margin-bottom:10px}
   .demo-frame,.btn-sub,footer .noprint{display:none!important}
@@ -192,6 +207,9 @@ footer{padding:26px 0 40px;font-size:.8rem;color:var(--ink-soft);text-align:cent
 
   <!-- 1 見出し -->
   <section class="hero">
+    <div class="hero-img">
+      <img src="hero.png" alt="顔の見える社長のイメージ" loading="eager">
+    </div>
     <h1>お宅のホームページ、<br>最後に問い合わせが来たのは、<br>いつでしたか。</h1>
     <p class="lead">思い出せなくても、大丈夫です。<br>悪かったのは、文章ではありませんでした。</p>
     <p class="lead">この下に、実際に動くものを置いています。<br>3分だけ、触ってみてください。</p>
