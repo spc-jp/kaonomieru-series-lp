@@ -146,6 +146,7 @@ p:last-child{margin-bottom:0}
   background:var(--ai-soft);border-radius:12px;padding:22px 24px;margin-bottom:26px;
 }
 footer{padding:26px 0 40px;font-size:.8rem;color:var(--ink-soft);text-align:center}
+.print-url{display:none}
 
 @media (max-width:520px){
   .hero h1{font-size:1.45rem}
@@ -169,6 +170,7 @@ footer{padding:26px 0 40px;font-size:.8rem;color:var(--ink-soft);text-align:cent
   .print-demo .u{font-family:var(--serif);font-size:12pt;word-break:break-all;margin-top:6px}
   .print-qr{display:inline-block;margin-top:10px}
   .fu{opacity:1!important;transform:none!important}
+  .print-url{display:block!important;font-size:10pt}
   .price{border:1pt solid #999}
   a{color:#000;text-decoration:none}
   .btn-main{border:1.2pt solid #333;color:#000;background:#fff;box-shadow:none}
@@ -338,7 +340,9 @@ footer{padding:26px 0 40px;font-size:.8rem;color:var(--ink-soft);text-align:cent
     <h2>つくっている人</h2>
     <div class="maker">
       <h3>松本 由也（Smile Plus Consulting）</h3>
-      <p class="small">20年、中小企業のホームページとチラシをやってきました。</p>
+      <p class="small" style="margin-bottom:14px">中小企業支援ひとすじ、20年。</p>
+      <p>経営者は、日々たくさんの課題に向き合っています。数字や広告のテクニックだけでなく、「経営者の想い」を大切にしながら伴走します。</p>
+      <p>WebやSNSも、仕組みづくりではなく、想いを届けるための手段です。「誰に、どう届けるか」を、一緒に考えます。</p>
       <div class="motto">「考えるを、ひとりにしない」</div>
     </div>
   </section>
@@ -409,10 +413,12 @@ function telHref(s){ return "tel:" + String(s||"").replace(/[^0-9+]/g,""); }
     note.innerHTML = esc(p.office) + "　" + esc(p.tel) + "<br>" + esc(p.email);
     document.title = "顔の見える社長｜" + p.office + " " + p.name + "からのご紹介";
   }else{
-    main.textContent = "この件について相談する";
-    main.href = "mailto:info@smileplusctg.com?subject=" +
-                encodeURIComponent("顔の見える社長について");
-    note.textContent = "Smile Plus Consulting　info@smileplusctg.com";
+    main.textContent = "ご相談・お問合せ";
+    main.href   = "https://www.smileplusctg.com/#contact";
+    main.target = "_blank";
+    main.rel    = "noopener";
+    note.innerHTML = "ご相談・お問合せは　www.smileplusctg.com/#contact";
+    note.classList.add("print-url");
   }
 })();
 
