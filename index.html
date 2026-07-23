@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>顔の見える社長｜ご紹介ページ</title>
+<style>
+:root{
+  --paper:#faf7f2;
+  --ink:#2f2a25;
+  --ink-soft:#6b6259;
+  --line:#e2dbd0;
+  --ai:#35607d;
+  --ai-soft:#eef3f6;
+  --accent:#b5623f;
+  --serif:"Hiragino Mincho ProN","Yu Mincho","YuMincho","MS PMincho",serif;
+  --sans:"Hiragino Sans","Yu Gothic","YuGothic","Meiryo",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;line-height:1.95;
+  letter-spacing:.02em;
+  -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px}
+section{padding:54px 0;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:none}
+h2{
+  font-family:var(--serif);
+  font-size:1.35rem;line-height:1.7;font-weight:600;
+  margin-bottom:22px;
+}
+h3{font-size:1rem;font-weight:600;margin-bottom:6px}
+p{margin-bottom:16px}
+p:last-child{margin-bottom:0}
+.small{font-size:.85rem;color:var(--ink-soft);line-height:1.85}
+.center{text-align:center}
+
+/* ふわっと浮かび上がる動きのみ */
+.fu{opacity:0;transform:translateY(14px);transition:opacity .9s ease,transform .9s ease}
+.fu.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.fu{opacity:1;transform:none;transition:none}}
+
+/* 0 紹介バー */
+#introBar{display:none;background:#fffdf9;border-bottom:1px solid var(--line)}
+#introBar.on{display:block}
+.ib{max-width:720px;margin:0 auto;padding:18px 22px}
+.ib-label{font-size:.78rem;color:var(--ai);letter-spacing:.14em;margin-bottom:6px}
+.ib-name{font-family:var(--serif);font-size:1.05rem;margin-bottom:8px}
+.ib-msg{font-size:.9rem;color:var(--ink-soft);line-height:1.9}
+
+/* 1 見出し */
+.hero{padding:70px 0 58px}
+.hero h1{
+  font-family:var(--serif);font-weight:600;
+  font-size:1.7rem;line-height:1.85;margin-bottom:26px;
+}
+.hero .lead{font-size:1rem}
+
+/* 2 これは、こういうものです */
+.pts{list-style:none;margin-top:6px}
+.pts li{
+  position:relative;padding-left:20px;margin-bottom:12px;line-height:1.9;
+}
+.pts li::before{
+  content:"";position:absolute;left:2px;top:.85em;
+  width:7px;height:7px;border-radius:50%;background:var(--ai);opacity:.55;
+}
+
+/* 3 デモ */
+.demo-frame{
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  background:#fff;box-shadow:0 3px 18px rgba(60,45,30,.07);
+  margin:24px 0 14px;
+}
+.demo-frame iframe{display:block;width:100%;height:640px;border:0}
+.print-demo{display:none}
+
+/* 5 声 */
+.voices{margin-top:4px}
+.voice{
+  font-family:var(--serif);font-size:1.02rem;
+  background:#fff;border:1px solid var(--line);
+  border-radius:14px 14px 14px 4px;
+  padding:14px 18px;margin-bottom:12px;
+}
+
+/* 6 心配 */
+.qa{border-top:1px solid var(--line);padding:18px 0}
+.qa:last-child{border-bottom:1px solid var(--line)}
+.qa .q{font-weight:600;margin-bottom:8px}
+.qa .q::before{content:"Q　";color:var(--ai)}
+.qa .a{color:var(--ink-soft);font-size:.95rem;margin:0}
+
+/* 7 流れ */
+.step{
+  position:relative;padding:0 0 26px 26px;
+  border-left:1px solid var(--line);
+}
+.step:last-child{border-left-color:transparent;padding-bottom:0}
+.step::before{
+  content:"";position:absolute;left:-5px;top:8px;
+  width:9px;height:9px;border-radius:50%;
+  background:var(--paper);border:2px solid var(--ai);
+}
+.step .when{font-size:.8rem;color:var(--ai);letter-spacing:.1em;margin-bottom:4px}
+.step ul{list-style:none;margin-top:8px}
+.step ul li{font-size:.93rem;color:var(--ink-soft);padding-left:14px;position:relative}
+.step ul li::before{content:"・";position:absolute;left:0}
+
+/* 8 価格 */
+.price{
+  background:#fff;border:1px solid var(--line);border-radius:12px;
+  padding:26px 24px;margin-bottom:18px;
+}
+.price + .price{margin-bottom:20px}
+.price .ttl{font-size:.85rem;color:var(--ink-soft);letter-spacing:.1em;margin-bottom:4px}
+.price .num{font-family:var(--serif);font-size:1.9rem;line-height:1.4}
+.price .num span{font-size:.9rem;margin-left:2px}
+.price ul{list-style:none;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+.price ul li{font-size:.9rem;color:var(--ink-soft);padding-left:14px;position:relative}
+.price ul li::before{content:"・";position:absolute;left:0}
+
+/* 9 つくっている人 */
+.maker{background:#fffdf9;border:1px solid var(--line);border-radius:12px;padding:22px 24px}
+.maker .motto{font-family:var(--serif);font-size:1.1rem;margin-top:12px;color:var(--ai)}
+
+/* 10 出口 */
+.exit{padding-bottom:70px}
+.btn{
+  display:block;text-align:center;text-decoration:none;
+  padding:18px 20px;border-radius:10px;margin-bottom:12px;
+  font-size:1.02rem;letter-spacing:.04em;
+  transition:opacity .3s ease;
+}
+.btn:hover{opacity:.82}
+.btn-main{background:var(--ai);color:#fff;box-shadow:0 3px 12px rgba(53,96,125,.22)}
+.btn-sub{background:transparent;color:var(--ai);border:1px solid var(--ai)}
+.closing{
+  font-family:var(--serif);font-size:1.02rem;line-height:2;
+  background:var(--ai-soft);border-radius:12px;padding:22px 24px;margin-bottom:26px;
+}
+footer{padding:26px 0 40px;font-size:.8rem;color:var(--ink-soft);text-align:center}
+
+@media (max-width:520px){
+  .hero h1{font-size:1.45rem}
+  h2{font-size:1.2rem}
+  .demo-frame iframe{height:560px}
+}
+
+/* ── 印刷（A4） ── */
+@media print{
+  body{background:#fff;font-size:10.5pt;line-height:1.75}
+  .wrap{max-width:100%;padding:0 10mm}
+  section{padding:14px 0;break-inside:avoid;page-break-inside:avoid}
+  .hero{padding:16px 0}
+  .hero h1{font-size:15pt}
+  h2{font-size:12pt;margin-bottom:10px}
+  .demo-frame,.btn-sub,footer .noprint{display:none!important}
+  .print-demo{
+    display:block;border:1.2pt solid #333;border-radius:6px;
+    padding:14px;text-align:center;margin:14px 0;
+  }
+  .print-demo .u{font-family:var(--serif);font-size:12pt;word-break:break-all;margin-top:6px}
+  .print-qr{display:inline-block;margin-top:10px}
+  .fu{opacity:1!important;transform:none!important}
+  .price{border:1pt solid #999}
+  a{color:#000;text-decoration:none}
+  .btn-main{border:1.2pt solid #333;color:#000;background:#fff;box-shadow:none}
+}
+</style>
+</head>
+<body>
+
+<!-- 0 紹介バー -->
+<div id="introBar">
+  <div class="ib">
+    <div class="ib-label">ご紹介</div>
+    <div class="ib-name" id="ibName"></div>
+    <div class="ib-msg" id="ibMsg"></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- 1 見出し -->
+  <section class="hero">
+    <h1>お宅のホームページ、<br>最後に問い合わせが来たのは、<br>いつでしたか。</h1>
+    <p class="lead">思い出せなくても、大丈夫です。<br>悪かったのは、文章ではありませんでした。</p>
+    <p class="lead">この下に、実際に動くものを置いています。<br>3分だけ、触ってみてください。</p>
+  </section>
+
+  <!-- 2 これは、こういうものです -->
+  <section class="fu">
+    <h2>これは、こういうものです</h2>
+    <p>社長の似顔絵をしたAIが、ホームページに来た人を出迎えます。</p>
+    <ul class="pts">
+      <li>「小ロットでも頼めますか」——聞きにくいことを、AIが先に口にします</li>
+      <li>二往復だけ話して、見積りフォームか、お電話へご案内します</li>
+      <li>AIであることは、いちばん最初にはっきりお伝えします</li>
+      <li>いまのホームページはそのままで、リンクを1つ足すだけです</li>
+    </ul>
+  </section>
+
+  <!-- 3 触ってください -->
+  <section class="fu">
+    <h2>説明を読むより、触ったほうが早いです</h2>
+    <p>これは、カワセ精工さん（金属加工）の見本です。<br>本当に動きます。どのボタンでも構いません。</p>
+
+    <div class="demo-frame">
+      <iframe src="https://spc-jp.github.io/kaogamieru-shacho-mfg/"
+              title="顔の見える社長（製造業版）見本"
+              loading="lazy"></iframe>
+    </div>
+
+    <div class="print-demo">
+      <div>スマートフォンで、こちらの見本に触れます</div>
+      <div class="u">spc-jp.github.io/kaogamieru-shacho-mfg/</div>
+      <!-- QR画像を使う場合はここに <img class="print-qr" src="qr.png" width="110"> を置いてください -->
+    </div>
+
+    <p class="small">いちばん下に、点線のボタンがあります。「どれもピンとこない方へ」。<br>じつは、あれがいちばん押されます。</p>
+    <!-- カワセ精工が実在の会社であれば、次の1行を削除してください -->
+    <p class="small">※カワセ精工は、見本用の架空の会社です。</p>
+  </section>
+
+  <!-- 4 なぜ、顔なのか -->
+  <section class="fu">
+    <h2>届いていないのは、文章ではありません</h2>
+    <p>文章は、いまや誰でもきれいに作れるようになりました。立派な会社案内も、心を打つ挨拶文も、数分でできます。</p>
+    <p>だからこそ、値打ちが上がったものがあります。<br>誰が言っているか、です。</p>
+    <p>この道具がやっているのは、社長の代わりに喋ることではありません。<br>社長に代わって、聞くことです。</p>
+  </section>
+
+  <!-- 5 こんな声を拾えるようになります -->
+  <section class="fu">
+    <h2>こんな声を、拾えるようになります</h2>
+    <div class="voices">
+      <div class="voice">1個だけでも、作ってもらえますか</div>
+      <div class="voice">図面がないんですが、写真でもいいですか</div>
+      <div class="voice">他社さんで断られてしまって</div>
+      <div class="voice">まだ具体的じゃないんですけど、相談だけでも</div>
+    </div>
+    <p class="small">どれも、電話をかける勇気が出ずに、そのまま帰っていった方たちの声です。</p>
+  </section>
+
+  <!-- 6 よくある、ご心配 -->
+  <section class="fu">
+    <h2>よくある、ご心配</h2>
+
+    <div class="qa">
+      <p class="q">AIが、うちが言っていないことを言い出しませんか。</p>
+      <p class="a">二往復で終わる設計です。金額も納期も、約束はしません。答えるのは、あらかじめ社長と決めておいた言葉だけです。</p>
+    </div>
+    <div class="qa">
+      <p class="q">顔を出すのは、少し気恥ずかしいのですが。</p>
+      <p class="a">写真ではなく、水彩の似顔絵です。やわらかく、けれど確かに伝わります。</p>
+    </div>
+    <div class="qa">
+      <p class="q">パソコンが苦手でも大丈夫ですか。</p>
+      <p class="a">言葉を決めるところまで、こちらでお手伝いします。社長にお願いするのは、30分ほどのお話だけです。</p>
+    </div>
+    <div class="qa">
+      <p class="q">いまのホームページを、作り直す必要がありますか。</p>
+      <p class="a">ありません。リンクを1つ足すだけです。</p>
+    </div>
+    <div class="qa">
+      <p class="q">合わなかったときは。</p>
+      <p class="a">月単位で、おやめいただけます。</p>
+    </div>
+  </section>
+
+  <!-- 7 こうやって始まります -->
+  <section class="fu">
+    <h2>こうやって始まります</h2>
+
+    <div class="step">
+      <div class="when">1週目</div>
+      <h3>30分、お話を聞かせてください</h3>
+      <ul>
+        <li>どんなお客様に来てほしいか</li>
+        <li>どんな仕事は、正直お断りしたいか</li>
+        <li>お顔の写真を1枚だけ</li>
+      </ul>
+    </div>
+    <div class="step">
+      <div class="when">2週目</div>
+      <h3>似顔絵と、入口の言葉をお持ちします</h3>
+      <ul><li>ここで、遠慮なく直してください</li></ul>
+    </div>
+    <div class="step">
+      <div class="when">2週間後</div>
+      <h3>公開。リンクを1つ貼るだけです</h3>
+    </div>
+  </section>
+
+  <!-- 8 いくらですか -->
+  <section class="fu">
+    <h2>いくらですか</h2>
+
+    <div class="price">
+      <div class="ttl">初期費用</div>
+      <div class="num">98,000<span>円（税別）</span></div>
+      <ul>
+        <li>水彩似顔絵の制作</li>
+        <li>入口の言葉づくり（8ルート）</li>
+        <li>設置・公開まで</li>
+      </ul>
+    </div>
+
+    <div class="price">
+      <div class="ttl">月額</div>
+      <div class="num">4,980<span>円（税別）</span></div>
+      <ul>
+        <li>置き場所の維持・表示の点検</li>
+        <li>文言の手直し（月1回まで）</li>
+        <li>ご質問へのご対応</li>
+      </ul>
+    </div>
+
+    <p>合う合わないは、触ってみて決めてください。<br>上の見本が、そのまま判断材料です。</p>
+  </section>
+
+  <!-- 9 つくっている人 -->
+  <section class="fu">
+    <h2>つくっている人</h2>
+    <div class="maker">
+      <h3>松本 由也（Smile Plus Consulting）</h3>
+      <p class="small">20年、中小企業のホームページとチラシをやってきました。</p>
+      <div class="motto">「考えるを、ひとりにしない」</div>
+    </div>
+  </section>
+
+  <!-- 10 出口 -->
+  <section class="exit fu">
+    <div class="closing">
+      必ず問い合わせが増えます、とは申しません。<br>
+      触ってみて、ピンとこなければ、それが答えです。
+    </div>
+
+    <a href="#" class="btn btn-main" id="exitMain">ご相談する</a>
+    <a href="#" class="btn btn-sub noprint" onclick="window.print();return false;">このページを印刷する</a>
+    <p class="small center" id="exitNote" style="margin-top:14px"></p>
+  </section>
+
+  <footer>
+    顔の見えるAIシリーズ｜Smile Plus Consulting<br>
+    <span class="noprint">画面のご案内役はAIです。金額・納期のお約束はいたしません。</span>
+  </footer>
+
+</div>
+
+<script>
+/* ───────────────────────────────
+   先生データ　※1人追加＝6行だけ
+   URL末尾に ?p=honma のように付けて使います
+─────────────────────────────── */
+var PROS = {
+  honma: {
+    office : "こだまや法律事務所",
+    name   : "本間先生",
+    msg    : "顧問先の社長さんに、まず見ていただきたいと思いました。合う合わないは、触ってから決めていただければと思います。",
+    tel    : "03-0000-0000",
+    email  : "info@example.com"
+  },
+  sample: {
+    office : "さくら税理士事務所",
+    name   : "佐藤先生",
+    msg    : "難しいことは分かりませんが、これは社長さんの人柄が出ると思いました。",
+    tel    : "048-000-0000",
+    email  : "info@example.jp"
+  }
+};
+
+/* ── 表示前のエスケープ（必須） ── */
+function esc(s){
+  return String(s == null ? "" : s)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+function telHref(s){ return "tel:" + String(s||"").replace(/[^0-9+]/g,""); }
+
+(function(){
+  var key = (new URLSearchParams(location.search).get("p") || "").toLowerCase();
+  var p   = Object.prototype.hasOwnProperty.call(PROS, key) ? PROS[key] : null;
+
+  var main = document.getElementById("exitMain");
+  var note = document.getElementById("exitNote");
+
+  if(p){
+    document.getElementById("introBar").classList.add("on");
+    document.getElementById("ibName").innerHTML = esc(p.office) + "　" + esc(p.name) + "からのご紹介です";
+    document.getElementById("ibMsg").innerHTML  = esc(p.msg);
+
+    main.textContent = p.name + "に相談する";
+    main.href = p.tel ? telHref(p.tel) : ("mailto:" + p.email);
+    note.innerHTML = esc(p.office) + "　" + esc(p.tel) + "<br>" + esc(p.email);
+    document.title = "顔の見える社長｜" + p.office + " " + p.name + "からのご紹介";
+  }else{
+    main.textContent = "この件について相談する";
+    main.href = "mailto:info@smileplusctg.com?subject=" +
+                encodeURIComponent("顔の見える社長について");
+    note.textContent = "Smile Plus Consulting　info@smileplusctg.com";
+  }
+})();
+
+/* ── ふわっと表示（跳ねない・回らない） ── */
+(function(){
+  var els = document.querySelectorAll(".fu");
+  if(!("IntersectionObserver" in window)){
+    els.forEach(function(el){ el.classList.add("on"); });
+    return;
+  }
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add("on"); io.unobserve(e.target); }
+    });
+  },{ threshold:.12, rootMargin:"0px 0px -8% 0px" });
+  els.forEach(function(el){ io.observe(el); });
+
+  window.addEventListener("beforeprint", function(){
+    els.forEach(function(el){ el.classList.add("on"); });
+  });
+})();
+</script>
+</body>
+</html>
